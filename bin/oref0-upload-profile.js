@@ -43,15 +43,15 @@ if (!module.parent) {
     var errors = [];
     var warnings = [];
 
-    var profile_input = params._.slice(0, 1).pop();
+    var profile_input = params._[0];
 
     if ([null, '--help', '-h', 'help'].indexOf(profile_input) > 0) {
         usage();
         process.exit(0);
     }
 
-    var nsurl = params._.slice(1, 2).pop();
-    var apisecret = params._.slice(2, 3).pop();
+    var nsurl = params._[1];
+    var apisecret = params._[2];
 
     if (!profile_input || !nsurl || !apisecret) {
         usage();
@@ -60,7 +60,7 @@ if (!module.parent) {
 
     if (apisecret.length != 40) {
         var shasum = crypto.createHash('sha1');
-        shasum.update(apisecret);
+        shasum.update(String(apisecret));
         apisecret = shasum.digest('hex');
     };
 
